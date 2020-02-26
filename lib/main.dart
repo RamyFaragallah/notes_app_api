@@ -95,6 +95,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   confirmDismiss: (direction) async {
                     final result = await showDialog(
                         context: context, builder: (_) => DeleteAlert());
+                    if (result) {
+                      var msg;
+                      var deleteresult = await service.deleteNote(
+                          _apiResponse.data[index].noteID);
+                      if (deleteresult != null && deleteresult.data) {
+                        msg = "The note was deleted successefully";
+                      } else {
+                        msg = "An error occured";
+                      }
+                      showDialog(context: (_),
+                          builder: (context) =>
+                              AlertDialog(
+                                title: Text("Done"),
+                                content: Text(msg),
+                                actions: <Widget>[
+                                  FlatButton(onPressed: () {
+                                    Navigator.of(context).pop();
+                                  }, child: Text("Dismiss"))
+                                ],
+                              ));
+                      return deleteresult?.data ?? false;
+                    }
                     print(result);
                     return result;
                   },

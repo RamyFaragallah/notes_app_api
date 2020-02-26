@@ -58,5 +58,16 @@ class NoteService {
       return ApiResponse<bool>(error: true, errorMsg: 'An error occured');
     })
     .catchError((_) => ApiResponse<bool>(error: true, errorMsg: 'An error occured'));
+   }
+
+  Future<ApiResponse<bool>> deleteNote(String noteID) {
+    return http.delete(API + '/notes/' + noteID, headers: headers).then((data) {
+      if (data.statusCode == 204) {
+        return ApiResponse<bool>(data: true);
+      }
+      return ApiResponse<bool>(error: true, errorMsg: 'An error occured');
+    })
+        .catchError((_) =>
+        ApiResponse<bool>(error: true, errorMsg: 'An error occured'));
   }
 }
