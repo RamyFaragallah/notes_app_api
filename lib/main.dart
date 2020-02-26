@@ -117,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ));
                       return deleteresult?.data ?? false;
                     }
+                    print(result);
                     return result;
                   },
                   background: Container(
